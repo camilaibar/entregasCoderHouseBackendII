@@ -1,0 +1,32 @@
+<div class="login-container">
+    <h2>Login</h2>
+    <form class="login-form" action="/api/v1/user/signin" method="POST">
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+        </div>
+        <button type="submit">Login</button>
+    </form>
+
+    <div class="divider">
+        <span>or</span>
+    </div>
+
+    <a href="/api/v1/user/github" class="login-btn">
+        <img src="/static/assets/githubLogo.png" alt="GitHub logo" class="logo">
+        Login with GitHub
+    </a>
+
+    <a href="/api/v1/user/oauth2/redirect/accounts.google.com" class="login-btn">
+        <img src="/static/assets/googleLogo.png" alt="Google logo" class="logo">
+        Login with Google
+    </a>
+
+    <p class="no-account">
+        Don't have an account? <a href="/hbs/register" class="register-link">Register here</a>
+    </p>
+</div>
