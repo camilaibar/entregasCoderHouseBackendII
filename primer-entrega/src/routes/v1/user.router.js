@@ -6,22 +6,23 @@ import {
   createUser,
   findUserByEmail,
 } from "../../dao/managers/users.manager.js";
+import { addJWTTokenToCookies } from "../../utils/jwtUtils.js";
 
 const router = Router();
 
-// Register route
+// Register with form
 router.post(
   "/signup",
-  passport.authenticate("signup"),
+  //passport.authenticate("signup"),
   async (req, res, next) => {
     try {
-      let { first_name, last_name, email, age, password, isGithub } = req.body;
+      let { first_name, last_name, email, age, password } = req.body;
 
       // Check if user already exists
       const existingUser = await findUserByEmail(email);
       if (existingUser) {
         console.error("User already exist");
-        return res.redirect("/hbs/");
+        return res.redirect("/hbs");
       }
 
       // Encript password
@@ -34,16 +35,15 @@ router.post(
         email,
         age,
         password,
-        isGithub,
       });
-      return res.status(201).json(newUser);
+      return res.redirect("/hbs/profile");
     } catch (error) {
       return next(error); // Pass error to next middleware (for better error handling)
     }
   }
 );
 
-// Login route
+// Login with form
 router.post(
   "/signin",
   passport.authenticate("signin"),
@@ -63,7 +63,12 @@ router.post(
         return res.status(400).json({ error: "Invalid email or password" });
       }
 
-      return res.status(200).json({
+      // JWT
+      addJWTTokenToCookies(res, user);
+
+      return res.redirect(`/hbs/profile`);
+
+      /*return res.status(200).json({
         message: "Login successful",
         session: req.session,
         user: {
@@ -71,7 +76,7 @@ router.post(
           last_name: user.last_name,
           role: user.role,
         },
-      });
+      });*/
     } catch (error) {
       return next(error); // Pass error to next middleware
     }
@@ -83,7 +88,6 @@ router.get(
   "/github",
   passport.authenticate("github", {
     failureRedirect: "/hbs/register",
-    successRedirect: "/hbs",
     passReqToCallback: true,
   })
 );
@@ -96,6 +100,8 @@ router.get(
     failureRedirect: "/hbs/register",
   }),
   async (req, res, next) => {
+    // JWT
+    addJWTTokenToCookies(res, req.user);
     return res.redirect("/hbs");
   }
 );
@@ -104,6 +110,7 @@ router.get(
 router.get("/logout", async (req, res, next) => {
   req.logOut((error) => {
     if (error) return next(error); // Pass error to next middleware
+    res.clearCookie("token");
     return res.redirect("/hbs/login");
   });
 });

@@ -214,3 +214,60 @@ button:hover {
 .logout-btn:hover {
   background-color: #0056b3;
 }
+.profile-container {
+  background-color: #1e1e1e;
+  padding: 3rem;
+  border-radius: 10px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+  width: 400px;
+  text-align: center;
+  margin: auto;
+}
+
+.profile-container h2 {
+  color: #ffffff;
+  margin-bottom: 2rem;
+}
+
+.profile-info .form-group {
+  margin-bottom: 1.5rem;
+}
+
+.profile-info label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #cfcfcf;
+}
+
+.profile-info input {
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid #333;
+  border-radius: 6px;
+  font-size: 1rem;
+  background-color: #2b2b2b;
+  color: #ffffff;
+  cursor: not-allowed;
+}
+
+.user-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.profile-link,
+.logout-btn {
+  padding: 1rem;
+  background-color: #007bff;
+  color: #ffffff;
+  border-radius: 6px;
+  text-decoration: none;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+.profile-link:hover,
+.logout-btn:hover {
+  background-color: #0056b3;
+}
