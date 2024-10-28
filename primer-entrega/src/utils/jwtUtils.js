@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+import passport from "passport";
 
 // Function to generate a JWT token for a user
 export const generateJWTToken = (user) => {
@@ -40,4 +41,25 @@ export const extractJWTTokenFromCookies = (req, res) => {
   }
 
   return token;
+};
+
+// Custom handler for passport authentication and errors
+export const passportCall = (strategy) => {
+  return async (req, res, next) => {
+    passport.authenticate(strategy, (err, user, info) => {
+      // Capture any error returned by 'done' in the passport strategy
+      if (err) return next(err);
+
+      // Capture custom messages set in the strategy callback's 'done' function
+      if (!user) {
+        return res.status(401).json({
+          message: info.messages ? info.messages : info.toString(),
+        });
+      }
+
+      // Attach the authenticated user to the request and proceed
+      req.user = user;
+      next();
+    })(req, res, next);
+  };
 };

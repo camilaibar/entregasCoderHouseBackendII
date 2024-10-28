@@ -1,7 +1,7 @@
 import { Router } from "express";
 import passport from "passport";
 
-import { addJWTTokenToCookies } from "../../utils/jwtUtils.js";
+import { addJWTTokenToCookies, passportCall } from "../../utils/jwtUtils.js";
 
 const router = Router();
 
@@ -16,10 +16,11 @@ router.get("/register", (req, res, next) => {
 // Protect the profile route with JWT authentication from cookies
 router.get(
   "/profile",
-  passport.authenticate("jwt-cookies", {
+  /*passport.authenticate("jwt-cookies", {
     session: false,
     failureRedirect: "/hbs/login",
-  }),
+  }),*/
+  passportCall("jwt-cookies"),
   (req, res) => {
     res.render("profile", {
       ...req.user, // This will contain user data if authentication succeeds
