@@ -11,6 +11,7 @@ import sessionConfig from "./config/sessionConfig.js";
 import "./middlewares/passport/localStrategy.js"; // Run this as script on run
 import "./middlewares/passport/githubStrategy.js"; // Run this as script on run
 import "./middlewares/passport/googleStrategy.js"; // Run this as script on run
+import "./middlewares/passport/jwtStrategy.js"; // Run this as script on run
 
 // Initial config
 const PORT = process.env.PORT;

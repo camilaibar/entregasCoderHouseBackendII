@@ -44,44 +44,31 @@ router.post(
 );
 
 // Login with form
-router.post(
-  "/signin",
-  passport.authenticate("signin"),
-  async (req, res, next) => {
-    try {
-      const { email, password } = req.body;
+router.post("/signin", async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
 
-      // Check if user exists
-      const user = await findUserByEmail(email);
-      if (!user) {
-        return res.status(400).json({ error: "Invalid email or password" });
-      }
-
-      // Check password of existing user
-      const isMatch = await isValidPassword(password, user.password);
-      if (!isMatch) {
-        return res.status(400).json({ error: "Invalid email or password" });
-      }
-
-      // JWT
-      addJWTTokenToCookies(res, user);
-
-      return res.redirect(`/hbs/profile`);
-
-      /*return res.status(200).json({
-        message: "Login successful",
-        session: req.session,
-        user: {
-          first_name: user.first_name,
-          last_name: user.last_name,
-          role: user.role,
-        },
-      });*/
-    } catch (error) {
-      return next(error); // Pass error to next middleware
+    // Check if user exists
+    const user = await findUserByEmail(email);
+    if (!user) {
+      return res.status(400).json({ error: "Invalid email or password" });
     }
+
+    // Check password of existing user
+    const isMatch = await isValidPassword(password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ error: "Invalid email or password" });
+    }
+
+    // Generate JWT and set it in the cookies
+    addJWTTokenToCookies(res, user);
+
+    // Redirect to the profile page after setting the JWT
+    return res.redirect(`/hbs/profile`);
+  } catch (error) {
+    return next(error); // Pass error to next middleware
   }
-);
+});
 
 // Login with github
 router.get(
