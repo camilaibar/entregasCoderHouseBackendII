@@ -1,0 +1,21 @@
+<h1>Products on storage</h1>
+<hr>
+<br>
+<table>
+    <thead>
+        <tr>
+            {{#each productsHeader}}
+                <th>{{capitalizeTitle this}}</th>
+            {{/each}}
+        </tr>
+    </thead>
+    <tbody>
+        {{#each productsData}}
+            <tr>
+                {{#each this}}
+                    <td>{{this}}</td>
+                {{/each}}
+            </tr>
+        {{/each}}
+    </tbody>
+</table>

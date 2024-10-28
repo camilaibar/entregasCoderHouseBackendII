@@ -1,0 +1,30 @@
+<div class="login-container">
+    <h2>Register</h2>
+    <form class="login-form" action="/api/v1/user/signup" method="POST">
+        <div class="form-group">
+            <label for="first_name">Name</label>
+            <input type="text" id="first_name" name="first_name" placeholder="Enter your name" required>
+        </div>
+        <div class="form-group">
+            <label for="last_name">Last Name</label>
+            <input type="text" id="last_name" name="last_name" placeholder="Enter your last name" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+        </div>
+        <div class="form-group">
+            <label for="age">Age</label>
+            <input type="number" id="age" name="age" placeholder="Enter your age" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+        </div>
+        <button type="submit">Register</button>
+    </form>
+
+    <p class="has-account">
+        Already have an account? <a href="/hbs" class="login-link">Login here</a>
+    </p>
+</div>

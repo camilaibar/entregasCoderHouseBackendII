@@ -1,0 +1,51 @@
+<h1>Products on storage real time view</h1>
+<hr>
+<br>
+<h2>Add new product</h2>
+<br>
+<form id="loadForm" action="http://localhost:8080/api/products/v1" method="post">
+    <label for="title">Title:</label>
+    <input type="text" id="title" name="title">
+    <label for="description">Description:</label>
+    <input type="text" id="description" name="description">
+    <label for="code">Code:</label>
+    <input type="text" id="code" name="code">
+    <label for="price">Price:</label>
+    <input type="number" id="price" name="price">
+    <label for="status">Status:</label>
+    <input type="boolean" id="status" name="status">
+    <label for="stock">Stock:</label>
+    <input type="number" id="stock" name="stock">
+    <label for="category">Category:</label>
+    <input type="text" id="category" name="category">
+    <input id="loadFormSubmitButton" type="submit" value="Submit">
+</form>
+<br>
+<h2>Products on storage </h2>
+<br>
+<table id="product-table">
+    <thead>
+        <tr>
+            {{#each productsHeader}}
+                <th>{{capitalizeTitle this}}</th>
+            {{/each}}
+        </tr>
+    </thead>
+    <tbody>
+        {{#each productsData}}
+            <tr>
+                {{#each this}}
+                    <td>{{completeNullable this}}</td>
+                {{/each}}
+            </tr>
+        {{/each}}
+    </tbody>
+</table>
+<p id="empty-state" style="display: none;">No products on storage.</p>
+<div id="section">
+    <button id="prevPage">Previous page</button>
+    <p id="page"></p>
+    <button id="nextPage">Next page</button>
+</div>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/static/js/realtimeProductsWithWebsockets.js"></script>

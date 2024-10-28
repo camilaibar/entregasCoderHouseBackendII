@@ -1,0 +1,23 @@
+<h1>Shopping cart on real time</h1>
+<hr>
+<table id="cart-table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+<div id="section">
+    <button id="empty-cart-btn">Empty Cart</button>
+</div>
+<p id="empty-cart-state" style="display: none;">Your cart is empty</p>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/static/js/realtimeCart.js"></script>

@@ -63,3 +63,22 @@ export const passportCall = (strategy) => {
     })(req, res, next);
   };
 };
+
+export const roleAuthorization = (requiredRole) => {
+  return (req, res, next) => {
+    // Check if the user object is present
+    if (!req.user) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+
+    // Check if the user's role matches the required role
+    if (req.user.role !== requiredRole) {
+      return res
+        .status(403)
+        .json({ error: "Forbidden: You do not have the required role" });
+    }
+
+    // Role matches, proceed to the next middleware
+    next();
+  };
+};
