@@ -1,5 +1,5 @@
 {
-  "name": "primer-entrega",
+  "name": "entrega-final",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -20,7 +20,8 @@
     "express-handlebars": "^8.0.1",
     "express-session": "^1.18.0",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.7.0",
+    "mongoose": "^8.7.3",
+    "mongoose-paginate-v2": "^1.8.5",
     "passport": "^0.7.0",
     "passport-github2": "^0.1.12",
     "passport-google-oauth20": "^2.0.0",

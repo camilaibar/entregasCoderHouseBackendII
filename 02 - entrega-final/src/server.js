@@ -4,7 +4,7 @@ import "dotenv/config"; // For using variables on .env file
 import cookieParser from "cookie-parser";
 import passport from "passport";
 
-import { dirname } from "../../backendI/src/utils/utils.js";
+import { dirname } from "../src/utils/utils.js";
 import router from "./routes/index.js";
 import mongoDBConnection from "./config/mongoConfig.js";
 import sessionConfig from "./config/sessionConfig.js";
