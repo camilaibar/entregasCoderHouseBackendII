@@ -1,8 +1,36 @@
 import { Router } from "express";
 import ProductManager from "../../dao/managers/product.manager.js";
+import productsModel from "../../dao/models/product.model.js";
 
 const router = Router();
 const productManager = new ProductManager();
+
+// This endpoint is for creating a sample data for products for testing the cart and user managemnet
+router.get("/sample", async (req, res) => {
+  const products = Array.from({ length: 100 }).map((_, index) => ({
+    title: `Product ${index + 1}`,
+    description: `Description for product ${index + 1}`,
+    code: `CODE${String(index + 1).padStart(3, "0")}`, // Genera códigos como CODE001, CODE002, etc.
+    price: (10 + index * 0.5).toFixed(2), // Asigna precios que aumentan gradualmente
+    status: index % 2 === 0, // Alterna entre true y false
+    stock: 50 + index, // Aumenta el stock de manera incremental
+    category: `Category ${String.fromCharCode(65 + (index % 26))}`, // Genera categorías de A a Z
+    thumbnails: [`http://example.com/image${index + 1}.jpg`],
+  }));
+
+  // Insertar los productos en la base de datos
+  await productsModel
+    .insertMany(products)
+    .then(() => {
+      console.log("Data inserted successfully!");
+      mongoose.connection.close();
+    })
+    .catch((error) => {
+      console.error("Error inserting data:", error);
+    });
+
+  return res.send("ok");
+});
 
 router.get("/", async (req, res) => {
   let { limit, page, sort, query } = req.query;
